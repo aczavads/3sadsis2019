@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import aula20190307.maiorLivroNoArrayComSubRotina.Livro;
+
 class TestarFuncionarios {
 	public static Funcionario[] funcionarios = {
 			new Funcionario("Beatriz",5800.35),
@@ -17,8 +19,24 @@ class TestarFuncionarios {
 		Funcionario maior = recuperarFuncionarioComMaiorSalario(funcionarios);
 		
 		assertEquals("Ana", maior.nome);
-		assertEquals(7200.12, maior.salario, 0.0);
+		assertEquals(7200.12, maior.salario);
 	}
+	
+	public static Funcionario recuperarFuncionarioComMaiorSalario(Funcionario[] arrayDeFuncionarios) {
+		if (arrayDeFuncionarios == null || arrayDeFuncionarios.length == 0) {
+			return null;
+		}
+		Funcionario maior = arrayDeFuncionarios[0];
+		for (int contador = 0; contador < arrayDeFuncionarios.length; contador++) {
+			Funcionario atual = arrayDeFuncionarios[contador];
+			if (atual.salario > maior.salario) {
+				maior = atual;
+			}
+		}
+		return maior;
+	}
+	
+	
 	
 //	public static Funcionario recuperarFuncionarioComMaiorSalario(Funcionario[] funcionarios) {
 //		return new Funcionario("fulano", 1.00);
