@@ -4,4 +4,5 @@ public class ListaDeCor {
 	public Cor[] cores = new Cor[0];
 	public int tamanho;
 
+	
 }

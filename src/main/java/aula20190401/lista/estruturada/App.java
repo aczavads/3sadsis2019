@@ -17,10 +17,16 @@ public class App {
 		inserirCor(azul, listaCompleta);
 		inserirCor(lilás, listaCompleta);
 		
+		listaCompleta.cores = new Cor[0];
+		
 		inserirCor(lilás, listaParcial);
 						
 		System.out.println("Tamanho da lista completa= " + listaCompleta.tamanho);
 		System.out.println("Tamanho da lista parcial= " + listaParcial.tamanho);
+		
+		listarCores("COMPLETA",listaCompleta);
+		listarCores("PARCIAL", listaParcial);
+
 		System.out.println("Foi.");
 	}	
 	public static void inserirCor(Cor cor, ListaDeCor lista) {
@@ -32,6 +38,14 @@ public class App {
 		lista.tamanho = lista.tamanho + 1; //lista.tamanho++
 		lista.cores = novoArray;
 	}
+	public static void listarCores(String nomeDaLista, ListaDeCor lista) {
+		System.out.println("Listando cores da lista " + nomeDaLista);
+		for (int contador = 0; contador < lista.tamanho; contador++) {
+			System.out.println(lista.cores[contador].codigo + " // " + lista.cores[contador].nome);
+		}
+	}
+	
+	
     
 }
 
