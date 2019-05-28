@@ -1,6 +1,7 @@
 package pessoa;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -22,20 +23,28 @@ public class Juridica extends Pessoa {
 	}
 
 	public void adicionarSocio(Pessoa socio, double percentualDeParticipacao) {
-		CotaSociedade cota = new CotaSociedade();
-		cota.percentualDeParticipacao = percentualDeParticipacao;
-		cota.socio = socio;
-		this.cotasSociedade.add(cota);
+		CotaSociedade cotaNova = new CotaSociedade();
+		cotaNova.percentualDeParticipacao = percentualDeParticipacao;
+		cotaNova.socio = socio;
+		/*
+		 * for (CotaSociedade cotaAtual : this.cotasSociedade) { if
+		 * (cotaAtual.getSocio().equals(socio)) { return; } }
+		 */
+		this.cotasSociedade.add(cotaNova);
 	}
 
 	public void removerSocio(Pessoa socioParaRemover) {
 		Set<CotaSociedade> novo = new HashSet<CotaSociedade>();
-		for (CotaSociedade cotaSociedade : cotasSociedade) {	
+		for (CotaSociedade cotaSociedade : cotasSociedade) {
 			if (!cotaSociedade.socio.equals(socioParaRemover)) {
 				novo.add(cotaSociedade);
 			}
 		}
 		this.cotasSociedade = novo;
+	}
+
+	public Set<CotaSociedade> getCotasSociedade() {
+		return this.cotasSociedade;
 	}
 
 	public String getCnpj() {
@@ -45,14 +54,38 @@ public class Juridica extends Pessoa {
 	public double getCapitalSocial() {
 		return capitalSocial;
 	}
-	
-	private class CotaSociedade {
+
+	public static class CotaSociedade {
 		private double percentualDeParticipacao;
 		private Pessoa socio;
-		
+
+		public Pessoa getSocio() {
+			return socio;
+		}
+
+		public double getPercentualDeParticipacao() {
+			return percentualDeParticipacao;
+		}
+
+		public int hashCode() {
+			return this.socio.hashCode();
+		}
+
+		@Override
+		public boolean equals(Object other) {
+			if (other == null) {
+				return false;
+			}
+			if (!other.getClass().equals(this.getClass())) {
+				return false;
+			}
+			CotaSociedade aux = (CotaSociedade) other;
+			if (aux.getSocio().equals(this.getSocio())) {
+				return true;
+			}
+			return false;
+		}
+
 	}
 
 }
-
-
-
