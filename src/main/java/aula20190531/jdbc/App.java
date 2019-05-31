@@ -32,6 +32,10 @@ public class App {
 			inserirCliente(conexão, 2, "Nelson Tenorio Junior", nascimentoNelson);
 			
 			//alterar nascimentoNelson para 11/11/1975
+			calendario.set(Calendar.YEAR, 1975);
+			calendario.set(Calendar.MONTH, 10);
+			calendario.set(Calendar.DAY_OF_MONTH, 11);
+			nascimentoNelson = calendario.getTime();
 			atualizarCliente(conexão, 2, "Nelson Tenorio Junior", nascimentoNelson);
 						
 			System.out.println("Conectou!");
@@ -42,6 +46,22 @@ public class App {
 		}
 		System.out.println("Fim.");
 	}
+	public static void atualizarCliente(Connection conexão, Integer id, String nome, Date nascimento) throws Exception {
+		String sql = "update cliente "
+				+ "set nome = ?, "
+				+ "nascimento = ? "
+				+ "where id = ?";
+		PreparedStatement statement = conexão.prepareStatement(sql);
+		
+		statement.setInt(3, id);
+		statement.setString(1, nome);
+		statement.setDate(2, new java.sql.Date(nascimento.getTime()));
+		
+		statement.execute();
+		statement.close();
+		
+	}
+	
 	public static void excluirTudo(Connection conexão) throws Exception {
 		String sql = "delete from cliente";		
 		Statement statement = conexão.createStatement();
